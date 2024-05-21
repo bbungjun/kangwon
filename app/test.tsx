@@ -11,6 +11,7 @@ interface Course {
   title: string;
   professor: string;
   description: string;
+  difficulty: string;
   credits: number;
   prerequisites: string;
   details: string[];
@@ -36,6 +37,7 @@ export default function Component() {
       professor: "정인범",
       description: "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "데이터 베이스, 자료구조, 컴퓨터구조",
       details: [
         "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
@@ -48,11 +50,12 @@ export default function Component() {
       professor: "최미정",
       description:  "데이터 통신에 적용되는 7계층 구조의 역할과 기술에 대해 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "컴퓨터 프로그래밍 I",
       details: [
+        "핵심 학습 내용:이 강의는 컴퓨터 네트워크의 기초 개념을 다룹니다. 데이터통신은 컴퓨터 간에 데이터를 전송하는 방법과 기술을 다룹니다. 수업에서는 네트워크의 7계층 모델(OSI 모델)을 배우고, 각 계층이 하는 역할과 주요 프로토콜에 대해 학습합니다. 예를 들어, 인터넷에서 데이터를 주고받을 때 사용하는 IP 주소, TCP/UDP 프로토콜, 네트워크 장비(라우터, 스위치 등)의 역할 등을 배우게 됩니다. 또한 와이어샤크라는 네트워크 분석 도구를 사용하여 실제 네트워크 트래픽을 분석하는 실습도 진행합니다. ",
         "수업방식: 100% 책(컴퓨터 네트워킹 하향식 접근)을 통한 이론 강의와 학기 당 한 번 정도의 와이어샤크 실습 과제",
         "관련 자격증: 정보처리기사, 정보통신기사, ADsP(데이터 분석 준전문가) ",
-        "수업시간: 1.5h 주 2회",
       ]
     },
     {
@@ -60,7 +63,8 @@ export default function Component() {
       professor: "정인범",
       description: "아두이노를 사용한 사물인터넷 구성 및 실습을 학습한다.",
       credits: 3,
-      prerequisites: ".",
+      difficulty: " 중 ",
+      prerequisites: "",
       details: [
         "수업방식: 이론 강의 보다는 매 시간 실습을 통해 수업을 진행한다.",
         "관련 자격증:  IoT지식능력검정시험",
@@ -72,6 +76,7 @@ export default function Component() {
       professor: "문양세",
       description: "데이터베이스의 기본 개념, 모델, 언어에 대해 학습한다. 이론을 바탕으로 SQL 프로그래밍을 진행한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "데이터베이스프로그래밍",
       details: [
         "수업방식: 강의 위주의 수업을 진행하되 일부는 SQL실습을 포함한다. 학기 당 4번의 SQL 실습 과제가 부여된다.",
@@ -84,6 +89,7 @@ export default function Component() {
       professor: "김윤",
       description: "디지털 영상으로부터 원하는 정보를 얻기 위한 처리에 대해 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "컴퓨터비전, 인공지능",
       details: [
         "수업방식: 이론+실습, 매주 복습용 실습 과제가 부여된다.",
@@ -95,6 +101,7 @@ export default function Component() {
       professor: "정인범",
       description: "세탁기, 스마트폰, 자동차 등에 들어있는 임베디드 형태의 컴퓨터 시스템에 대한 기본적 구조와 동작에 대해 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "사물인터넷실습, 운영체제",
       details: [
         "수업방식: 이론수업과 실습을 병행한다. 매주 실습 과제가 부여된다.(라즈베리 파이)",
@@ -106,6 +113,7 @@ export default function Component() {
       professor: "최미정",
       description: "데이터통신 강의와 이어서 컴퓨터 통신망의 상위 계층 프로토콜에 대해 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "데이터 통신",
       details: [
         "수업방식: 이론 위주의 수업을 진행한다. 학기 당 문제풀이 과제가 있음",
@@ -118,6 +126,7 @@ export default function Component() {
       professor: "김윤",
       description: "인공지능에게 시각적 정보를 제공하고, 인간이 보고 판단하는 능력을 구현하는 기술에 대해 학습한다.",
       credits: 3,
+      difficulty: " 중 ",
       prerequisites: "디지털영상처리",
       details: [
         "수업방식: 이론+실습, 매주 복습용 실습 과제가 부여된다.",
@@ -179,6 +188,10 @@ export default function Component() {
                       {course.credits}
                     </div>
                     <div>
+                      <span className="font-medium">난이도:</span>
+                      {course.difficulty}
+                    </div>
+                    <div>
                       <span className="font-medium">연계 과목:</span>
                       {course.prerequisites}
                     </div>
@@ -216,17 +229,9 @@ export default function Component() {
               <DialogTitle>{selectedCourse.title}</DialogTitle>
               <DialogDescription>{selectedCourse.description}</DialogDescription>
             </DialogHeader>
-            <div className="space-y-2">
+            <div className="space-y-2">              
               <div>
-                <span className="font-medium">학점:</span>
-                {selectedCourse.credits}
-              </div>
-              <div>
-                <span className="font-medium">연계 과목:</span>
-                {selectedCourse.prerequisites}
-              </div>
-              <div>
-                <span className="font-medium">강의 관련:</span>
+                <span className="font-medium">과목 특징:</span>
                 <ul className="list-disc pl-4">
                   {selectedCourse.details.map((detail, index) => (
                     <li key={index}>{detail}</li>
