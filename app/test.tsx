@@ -5,20 +5,19 @@ import { Button } from "@/components/ui/button";
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { DialogTitle, DialogDescription, DialogHeader, DialogContent, DialogFooter, Dialog } from "@/components/ui/dialog";
 import { RadioGroup } from "@/components/ui/radio-group";
-
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 
 // Course 인터페이스 정의
 interface Course {
-  title: string;
-  professor: string;
-  description: string;
-  difficulty: string;
-  credits: number;
-  prerequisites: string;
-  details: string[];
-  year: number; // 학년 정보 추가
+  title: string; //과목이름 
+  professor: string; // 교수명 
+  description: string; //설명
+  difficulty: string; //난이도 
+  credits: number;   // 학점 
+  prerequisites: string; // 선수과목 =>  연계과목 
+  details: string[];//자세히 보기에 들어감
+  year: number; // 학년 정보 추가(카드에 표시되지는 않음 )
 }
 
 export default function Component() {
@@ -46,17 +45,116 @@ export default function Component() {
 
   const courses: Course[] = [
     {
+      title: "컴퓨터 개론",
+      professor: "김향미",
+      year: 1, //학년 정보 추가 
+      description: "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
+      credits: 3,
+      difficulty: " 중 ",
+      prerequisites: "전반적인 컴퓨터 공학 과목",
+      details: [
+        "핵심 내용: 컴퓨터가 무엇인지, 어떻게 작동하는지에 대한 전반적인 이해를 돕습니다. 컴퓨터의 역사부터 시작해, 내부의 하드웨어 구성 요소들(예: CPU, 메모리, 저장공간) 이 어떻게 상호작용하는지, 소프트웨어가 어떤 역할을 하는지 설명합니다. 또한, 컴퓨터 과학의 여러 분야(프로그래밍, 네트워킹, 데이터베이스 등)에 대한 기초 개념을 소개해, 이후 과목에서 배우게 될 내용들을 미리 개괄적으로 다룹니다.",
+        "수업 방식: 이론 중심, 일주일에 1일.",
+        "사용 언어 : x "
+      ],
+    },
+    {
+      title: "자바프로그래밍1",
+      professor: "하진영",
+      year: 1, //학년 정보 추가 
+      description: "자바 언어에 관하여 학습합니다.",
+      credits: 3,
+      difficulty: " 중 ",
+      prerequisites: "자바2, 자료구조, 데이터베이스 프로그래밍, 실전코딩",
+      details: [
+        "핵심 내용: 자바는 전 세계적으로 많이 사용되는 프로그래밍 언어 중 하나로, 수업에서는 자바 프로그램을 실행하는 방법, 기본 문법(예 : 변수 선언, 조건문, 반복문 등) 을 배우고, 간단한 프로그램을 작성해 보는 실습을 합니다.  ex) 자바 언어로 계산기를 만들거나 하는 식",
+        "수업 방식: 이론 + 실습, 주1회 이론수업, 1회 실습",
+        "사용 언어: 자바"
+      ],
+    },
+    {
+      title: "C언어 프로그래밍",
+      professor: "지수환",
+      year: 1, //학년 정보 추가 
+      description: "자바 언어에 관하여 학습합니다.",
+      credits: 3,
+      difficulty: " 중 ",
+      prerequisites: "자료구조, 알고리즘",
+      details: [
+        "핵심 내용: C언어는 시스템 소프트웨어 개발에 많이 사용되는 프로그래밍 언어로, 수업에서는 C프로그램을 작성하고 실행하는 방법, 기본 문법(예: 변수, 연산자, 조건문, 반복문 등)을 배우고, 포인터와 같은 중요한 개념도 다룹니다. ex) 문자열 조작, 간단한 포인터를 이용한 실습을 통해 C언어의 기초를 익힙니다",
+        "수업 방식: 이론 + 실습, 일주일에 2일",
+        "사용 언어: C언어"
+      ],
+    },
+    {
+      title: "자바 프로그래밍2",
+      professor: "이헌길",
+      year: 1, //학년 정보 추가 
+      description: "자바 언어의 심화 개념을 익힙니다. ",
+      credits: 3,
+      difficulty: "중상",
+      prerequisites: "자바1, 자료구조, 데이터베이스 프로그래밍, 실전코딩",
+      details: [
+        "핵심 내용:자바1에서 배운 내용을 심화하여, 더 복잡한 자바프로그램을 작성하는 방법을 배웁니다. 객체지향 프로그래밍 개녕(클래스, 객체, 상속 등)을 배우고, 여러 개의 파일로 구성된 큰 프로그램을 작성하는 방법도 다룹니다. ex) 여러 개의 클래스가 상호작용하는 간단한 응용 프로그램을 작성해 보는 실습을 통해 진행됩니다.",
+        "수업 방식: 이론 + 실습, 주1회 이론수업, 1회 실습",
+        "사용 언어: 자바 "
+      ],
+    },
+    //2학년 과목들 ~~
+    {
+      title: "논리회로",
+      professor: "최창렬",
+      year: 2, //학년 정보 추가 
+      description: "",
+      credits: 3,
+      difficulty: "중상",
+      prerequisites: "컴퓨터 구조",
+      details: [
+        "핵심 내용: 이 강의는 컴퓨터 내부에서 정보가 어떻게 처리되는지에 대한 기초적인 개념을 다룹니다. 컴퓨터는 0과 1로 이루어진 2진수를 사용하여 데이터를 처리하는데, 논리회로는 이러한 2진수를 처리하는 기본적인 전자 회로입니다. 수업에서는 AND, OR, NOT 같은 기본적인 논리 게이트가 어떻게 작동하는지 배우고, 이러한 게이트를 조합하여 더 복잡한 회로를 설계하는 방법도 다룹니다. ",
+        "수업 방식: 이론 중심, 일주일에 2일 ",
+        "사용 언어: "
+      ],
+    },
+    {
+      title: "이산수학",
+      professor: "권호연",
+      year: 1, //학년 정보 추가 
+      description: "",
+      credits: 3,
+      difficulty: " 중 ",
+      prerequisites: " 알고리즘 ",
+      details: [
+        "핵심 내용:이 강의는 컴퓨터 공학에서 필수적인 수학적 개념들을 다룹니다. 여기에는 집합론, 그래프 이론, 조합론, 논리 등이 포함됩니다. 이산수학은 실제로는 수학적인 문제를 해결하기 위해 컴퓨터 프로그램을 작성하는 데 필요한 이론적 기초를 제공합니다. 예를 들어, 수업에서는 그래프를 사용하여 최단 경로를 찾는 알고리즘을 배우고, 이를 파이썬 프로그래밍 언어로 구현해 보는 과제를 수행하게 됩니다",
+        "수업 방식: ",
+        "사용 언어: 파이썬"
+      ],
+    },
+    {
+      title: "자료구조",
+      professor: "최황규",
+      year: 1, //학년 정보 추가 
+      description: "",
+      credits: 3,
+      difficulty: " 중상 ",
+      prerequisites: " 알고리즘",
+      details: [
+        "핵심 내용:이 강의는 데이터를 효율적으로 저장하고 관리하는 방법을 다룹니다. 자료구조는 데이터를 조직하는 다양한 방법을 의미합니다. 수업에서는 리스트, 배열, 스택, 큐, 트리 등의 기본적인 자료구조를 배우고, 이러한 자료구조를 사용하여 문제를 해결하는 방법도 다룹니다. 예를 들어, 데이터를 정렬하거나 검색하는 프로그램을 작성하는 방법을 배우게 됩니다.",
+        "수업 방식: ",
+        "사용 언어: "
+      ],
+    },
+    {
       title: "운영체제 I",
       professor: "정인범",
       description: "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
       credits: 3,
+      year: 3, // 학년 정보 추가
       difficulty: " 중 ",
       prerequisites: "데이터 베이스, 자료구조, 컴퓨터구조",
       details: [
         "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
         "관련 자격증: 정보처리기사",
       ],
-      year: 1, // 학년 정보 추가
     },
     {
       title: "데이터 통신",
