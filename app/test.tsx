@@ -131,10 +131,7 @@ export default function Component() {
             전공 강좌
           </Link>
           <Link className="hover:underline" href="#">
-            교수진
-          </Link>
-          <Link className="hover:underline" href="#">
-            연구 분야
+            진로 트랙
           </Link>
           <Link className="hover:underline" href="#">
             연락처
