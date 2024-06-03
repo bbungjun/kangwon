@@ -19,36 +19,44 @@ interface Course {
   year: number; // 학년 정보 추가(카드에 표시되지는 않음 )
 }
 
-const Home = () => (
+const Home = ({ handleViewCourses, handleViewTrack, handleViewContact }: { handleViewCourses: () => void, handleViewTrack: () => void, handleViewContact: () => void }) => (
   <section className="w-full py-12 md:py-24 lg:py-32 bg-[#0072C6]">
-  <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10 text-white">
-    <div className="space-y-3">
-      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">CodeCompass</h2>
-      <p className="mx-auto max-w-[700px] text-gray-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-      강원대학교 컴퓨터공학과 학생들의 수강신청에 있어서 도움을 주기 위해서 만들었음.
-      </p>
+    <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10 text-white">
+      <div className="space-y-3">
+        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Code Compass</h2>
+        <p className="mx-auto max-w-[700px] text-gray-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+          강원대학교 컴퓨터공학과 학생들의 수강신청에 있어서 도움을 주기 위해서 만들었음.
+        </p>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <BookIcon className="w-12 h-12" />
+          <h3 className="text-lg font-semibold">전공 강좌</h3>
+          <p className="text-gray-200 text-sm">All about 강원대 컴퓨터공학부 courses</p>
+          <Button variant="outline" className="text-blue-400" onClick={handleViewCourses}>
+            View Courses
+          </Button>
+        </div>
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <CompassIcon className="w-12 h-12" />
+          <h3 className="text-lg font-semibold">진로 트랙</h3>
+          <p className="text-gray-200 text-sm">취업해야겠지?.</p>
+          <Button variant="outline" className="text-blue-400" onClick={handleViewTrack}>
+            View Track
+          </Button>
+        </div>
+        <div className="flex flex-col items-center justify-center space-y-2">
+          <PhoneIcon className="w-12 h-12" />
+          <h3 className="text-lg font-semibold">연락처</h3>
+          <p className="text-gray-200 text-sm">전화는 부담되니 문자남겨주세요.</p>
+          <Button variant="outline" className="text-blue-400" onClick={handleViewContact}>
+            Contact
+          </Button>
+        </div>
+      </div>
     </div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div className="flex flex-col items-center justify-center space-y-2">
-        <BookIcon className="w-12 h-12" />
-        <h3 className="text-lg font-semibold">전공 강좌</h3>
-        <p className="text-gray-200 text-sm">All about 강원대 컴퓨터공학부 courses</p>
-      </div>
-      <div className="flex flex-col items-center justify-center space-y-2">
-        <CompassIcon className="w-12 h-12" />
-        <h3 className="text-lg font-semibold">진로 트랙</h3>
-        <p className="text-gray-200 text-sm">취업해야겠지?.</p>
-      </div>
-      <div className="flex flex-col items-center justify-center space-y-2">
-        <PhoneIcon className="w-12 h-12" />
-        <h3 className="text-lg font-semibold">연락처</h3>
-        <p className="text-gray-200 text-sm">전화는 부담되니 문자남겨주세요.</p>
-      </div>
-    </div>
-  </div>
-</section>
-)
-
+  </section>
+);
 
 function CompassIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -67,12 +75,10 @@ function CompassIcon(props: React.SVGProps<SVGSVGElement>) {
       <circle cx="12" cy="12" r="10" />
       <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
     </svg>
-  )
+  );
 }
 
-
-
-interface PhoneIconProps extends React.SVGProps<SVGSVGElement> { }
+interface PhoneIconProps extends React.SVGProps<SVGSVGElement> {}
 
 function PhoneIcon(props: PhoneIconProps) {
   return (
@@ -92,9 +98,6 @@ function PhoneIcon(props: PhoneIconProps) {
     </svg>
   );
 }
-
-
-
 
 const Courses = ({ courses, handleOpenDialog, selectedYears, handleCheckboxChange, groupedCourses, getCardColor }: { courses: any, handleOpenDialog: any, selectedYears: number[], handleCheckboxChange: (year: number) => void, groupedCourses: { [key: number]: any[] }, getCardColor: (year: number) => string }) => (
   <div>
@@ -126,20 +129,16 @@ const Courses = ({ courses, handleOpenDialog, selectedYears, handleCheckboxChang
               <CardContent>
                 <div className="space-y-2">
                   <div>
-                    <span className="font-medium">교수:</span>
-                    {course.professor}
+                    <span className="font-medium">교수:</span> {course.professor}
                   </div>
                   <div>
-                    <span className="font-medium">학점:</span>
-                    {course.credits}
+                    <span className="font-medium">학점:</span> {course.credits}
                   </div>
                   <div>
-                    <span className="font-medium">난이도:</span>
-                    {course.difficulty}
+                    <span className="font-medium">난이도:</span> {course.difficulty}
                   </div>
                   <div>
-                    <span className="font-medium">연계 과목:</span>
-                    {course.prerequisites}
+                    <span className="font-medium">연계 과목:</span> {course.prerequisites}
                   </div>
                 </div>
               </CardContent>
@@ -179,7 +178,7 @@ export default function Component() {
   const handleOpenDialog = (course: Course) => {
     setSelectedCourse(course);
     setOpenDialog(true);
-  };  
+  };
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
@@ -194,11 +193,24 @@ export default function Component() {
     );
   };
 
+  const handleViewCourses = () => {
+    setActiveMenu("전공 강좌");
+  };
+
+  const handleViewTrack = () => {
+    setActiveMenu("진로 트랙");
+  };
+
+  const handleViewContact = () => {
+    setActiveMenu("연락처");
+  };
+
+
   const courses: Course[] = [
     {
       title: "컴퓨터 개론",
       professor: "김향미",
-      year: 1, //학년 정보 추가 
+      year: 1,
       description: "컴퓨터의 기본 시스템 소프트웨어인 운영체제에 대해 기능, 구조 및 구현방법을 학습한다.",
       credits: 3,
       difficulty: " 중 ",
@@ -212,7 +224,7 @@ export default function Component() {
     {
       title: "자바프로그래밍1",
       professor: "하진영",
-      year: 2, //학년 정보 추가 
+      year: 2,
       description: "자바 언어에 관하여 학습합니다.",
       credits: 3,
       difficulty: " 중 ",
@@ -226,7 +238,7 @@ export default function Component() {
     {
       title: "자바프로그래밍1",
       professor: "하진영",
-      year: 3, //학년 정보 추가 
+      year: 3,
       description: "자바 언어에 관하여 학습합니다.",
       credits: 3,
       difficulty: " 중 ",
@@ -246,15 +258,15 @@ export default function Component() {
   const getCardColor = (year: number) => {
     switch (year) {
       case 1:
-        return "bg-blue-100"; // 1학년 과목 카드 색상
+        return "bg-blue-100";
       case 2:
-        return "bg-green-100"; // 2학년 과목 카드 색상
+        return "bg-green-100";
       case 3:
-        return "bg-yellow-100"; // 3학년 과목 카드 색상
+        return "bg-yellow-100";
       case 4:
-        return "bg-red-100"; // 4학년 과목 카드 색상
+        return "bg-red-100";
       default:
-        return "bg-white"; // 기본 카드 색상
+        return "bg-white";
     }
   };
 
@@ -291,7 +303,7 @@ export default function Component() {
       </header>
       <main className="flex-1 py-12 px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          {activeMenu === "홈" && <Home />}
+          {activeMenu === "홈" && <Home handleViewCourses={handleViewCourses} handleViewTrack={handleViewTrack} handleViewContact={handleViewContact} />}
           {activeMenu === "전공 강좌" && <Courses courses={courses} handleOpenDialog={handleOpenDialog} selectedYears={selectedYears} handleCheckboxChange={handleCheckboxChange} groupedCourses={groupedCourses} getCardColor={getCardColor} />}
           {activeMenu === "진로 트랙" && <Career />}
           {activeMenu === "연락처" && <Contact />}
@@ -318,7 +330,7 @@ export default function Component() {
               <DialogTitle>{selectedCourse.title}</DialogTitle>
               <DialogDescription>{selectedCourse.description}</DialogDescription>
             </DialogHeader>
-            <div className="space-y-2">              
+            <div className="space-y-2">
               <div>
                 <span className="font-medium">과목 특징:</span>
                 <ul className="list-disc pl-4">
