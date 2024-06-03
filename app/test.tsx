@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card";
 import { DialogTitle, DialogDescription, DialogHeader, DialogContent, DialogFooter, Dialog } from "@/components/ui/dialog";
-import { RadioGroup } from "@/components/ui/radio-group";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
 
@@ -20,10 +19,93 @@ interface Course {
   year: number; // 학년 정보 추가(카드에 표시되지는 않음 )
 }
 
+const Home = () => (
+  <div>
+    <h1 className="text-3xl font-bold mb-8">강원대학교 컴퓨터공학부</h1>
+    <p>Kangwon National University
+    Dept. of Computer Science and Engineering</p>
+  </div>
+);
+
+const Courses = ({ courses, handleOpenDialog, selectedYears, handleCheckboxChange, groupedCourses, getCardColor }: { courses: any, handleOpenDialog: any, selectedYears: number[], handleCheckboxChange: (year: number) => void, groupedCourses: { [key: number]: any[] }, getCardColor: (year: number) => string }) => (
+  <div>
+    <h1 className="text-3xl font-bold mb-8">컴퓨터 공학과 전공 강좌</h1>
+    <div className="flex flex-col space-y-2 mb-4">
+      <Label>학년 선택:</Label>
+      {[1, 2, 3, 4].map(year => (
+        <div key={year} className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            id={`year-${year}`}
+            checked={selectedYears.includes(year)}
+            onChange={() => handleCheckboxChange(year)}
+          />
+          <Label htmlFor={`year-${year}`}>{year}학년</Label>
+        </div>
+      ))}
+    </div>
+    {Object.keys(groupedCourses).map(year => (
+      <div key={year} className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">{year}학년 과목</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {groupedCourses[parseInt(year)].map((course, index) => (
+            <Card key={index} className={`max-w-sm ${getCardColor(course.year)}`}>
+              <CardHeader>
+                <CardTitle>{course.title}</CardTitle>
+                <CardDescription>{course.description}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <div>
+                    <span className="font-medium">교수:</span>
+                    {course.professor}
+                  </div>
+                  <div>
+                    <span className="font-medium">학점:</span>
+                    {course.credits}
+                  </div>
+                  <div>
+                    <span className="font-medium">난이도:</span>
+                    {course.difficulty}
+                  </div>
+                  <div>
+                    <span className="font-medium">연계 과목:</span>
+                    {course.prerequisites}
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full" variant="outline" onClick={() => handleOpenDialog(course)}>
+                  자세히 보기
+                </Button>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+
+const Career = () => (
+  <div>
+    <h1 className="text-3xl font-bold mb-8">진로 트랙</h1>
+    <p>업데이트</p>
+  </div>
+);
+
+const Contact = () => (
+  <div>
+    <h1 className="text-3xl font-bold mb-8">연락처</h1>
+    <p>여기는 연락처 페이지입니다.</p>
+  </div>
+);
+
 export default function Component() {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [selectedYears, setSelectedYears] = useState<number[]>([]);
+  const [activeMenu, setActiveMenu] = useState<string>("홈");
 
   const handleOpenDialog = (course: Course) => {
     setSelectedCourse(course);
@@ -86,24 +168,6 @@ export default function Component() {
         "사용 언어: 자바"
       ],
     },
-     {
-      title: "자바프로그래밍1",
-      professor: "하진영",
-      year: 3, //학년 정보 추가 
-      description: "자바 언어에 관하여 학습합니다.",
-      credits: 3,
-      difficulty: " 중 ",
-      prerequisites: "자바2, 자료구조, 데이터베이스 프로그래밍, 실전코딩",
-      details: [
-        "핵심 내용: 자바는 전 세계적으로 많이 사용되는 프로그래밍 언어 중 하나로, 수업에서는 자바 프로그램을 실행하는 방법, 기본 문법(예 : 변수 선언, 조건문, 반복문 등) 을 배우고, 간단한 프로그램을 작성해 보는 실습을 합니다.  ex) 자바 언어로 계산기를 만들거나 하는 식",
-        "수업 방식: 이론 + 실습, 주1회 이론수업, 1회 실습",
-        "사용 언어: 자바"
-      ],
-    },
-    
-    
-    // 다른 강의들도 추가
-
   ];
 
   const filteredCourses = courses.filter(course =>
@@ -138,18 +202,18 @@ export default function Component() {
           <span className="text-lg font-semibold">CODECOMPASS</span>
         </Link>
         <nav className="hidden md:flex items-center gap-6">
-          <Link className="hover:underline" href="#">
+          <button className="hover:underline" onClick={() => setActiveMenu("홈")}>
             홈
-          </Link>
-          <Link className="hover:underline" href="#">
+          </button>
+          <button className="hover:underline" onClick={() => setActiveMenu("전공 강좌")}>
             전공 강좌
-          </Link>
-          <Link className="hover:underline" href="#">
+          </button>
+          <button className="hover:underline" onClick={() => setActiveMenu("진로 트랙")}>
             진로 트랙
-          </Link>
-          <Link className="hover:underline" href="#">
+          </button>
+          <button className="hover:underline" onClick={() => setActiveMenu("연락처")}>
             연락처
-          </Link>
+          </button>
         </nav>
         <Button className="md:hidden" size="icon" variant="outline">
           <MenuIcon className="h-6 w-6" />
@@ -158,63 +222,10 @@ export default function Component() {
       </header>
       <main className="flex-1 py-12 px-4 md:px-8 lg:px-12">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl font-bold mb-8">컴퓨터 공학과 전공 강좌</h1>
-          
-          <div className="flex flex-col space-y-2 mb-4">
-            <Label>학년 선택:</Label>
-            {[1, 2, 3, 4].map(year => (
-              <div key={year} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  id={`year-${year}`}
-                  checked={selectedYears.includes(year)}
-                  onChange={() => handleCheckboxChange(year)}
-                />
-                <Label htmlFor={`year-${year}`}>{year}학년</Label>
-              </div>
-            ))}
-          </div>
-          
-          {Object.keys(groupedCourses).map(year => (
-            <div key={year} className="mb-8">
-              <h2 className="text-2xl font-bold mb-4">{year}학년 과목</h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                {groupedCourses[parseInt(year)].map((course, index) => (
-                  <Card key={index} className={`max-w-sm ${getCardColor(course.year)}`}>
-                    <CardHeader>
-                      <CardTitle>{course.title}</CardTitle>
-                      <CardDescription>{course.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div>
-                          <span className="font-medium">교수:</span>
-                          {course.professor}
-                        </div>
-                        <div>
-                          <span className="font-medium">학점:</span>
-                          {course.credits}
-                        </div>
-                        <div>
-                          <span className="font-medium">난이도:</span>
-                          {course.difficulty}
-                        </div>
-                        <div>
-                          <span className="font-medium">연계 과목:</span>
-                          {course.prerequisites}
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button className="w-full" variant="outline" onClick={() => handleOpenDialog(course)}>
-                        자세히 보기
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ))}
+          {activeMenu === "홈" && <Home />}
+          {activeMenu === "전공 강좌" && <Courses courses={courses} handleOpenDialog={handleOpenDialog} selectedYears={selectedYears} handleCheckboxChange={handleCheckboxChange} groupedCourses={groupedCourses} getCardColor={getCardColor} />}
+          {activeMenu === "진로 트랙" && <Career />}
+          {activeMenu === "연락처" && <Contact />}
         </div>
       </main>
       <footer className="bg-[#0072C6] text-white py-6 px-4 md:px-8 lg:px-12">
