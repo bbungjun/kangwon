@@ -20,12 +20,81 @@ interface Course {
 }
 
 const Home = () => (
-  <div>
-    <h1 className="text-3xl font-bold mb-8">강원대학교 컴퓨터공학부</h1>
-    <p>Kangwon National University
-    Dept. of Computer Science and Engineering</p>
+  <section className="w-full py-12 md:py-24 lg:py-32 bg-[#0072C6]">
+  <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10 text-white">
+    <div className="space-y-3">
+      <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">CodeCompass</h2>
+      <p className="mx-auto max-w-[700px] text-gray-200 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+      강원대학교 컴퓨터공학과 학생들의 수강신청에 있어서 도움을 주기 위해서 만들었음.
+      </p>
+    </div>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="flex flex-col items-center justify-center space-y-2">
+        <BookIcon className="w-12 h-12" />
+        <h3 className="text-lg font-semibold">전공 강좌</h3>
+        <p className="text-gray-200 text-sm">All about 강원대 컴퓨터공학부 courses</p>
+      </div>
+      <div className="flex flex-col items-center justify-center space-y-2">
+        <CompassIcon className="w-12 h-12" />
+        <h3 className="text-lg font-semibold">진로 트랙</h3>
+        <p className="text-gray-200 text-sm">취업해야겠지?.</p>
+      </div>
+      <div className="flex flex-col items-center justify-center space-y-2">
+        <PhoneIcon className="w-12 h-12" />
+        <h3 className="text-lg font-semibold">연락처</h3>
+        <p className="text-gray-200 text-sm">전화는 부담되니 문자남겨주세요.</p>
+      </div>
+    </div>
   </div>
-);
+</section>
+)
+
+
+function CompassIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    </svg>
+  )
+}
+
+
+
+interface PhoneIconProps extends React.SVGProps<SVGSVGElement> { }
+
+function PhoneIcon(props: PhoneIconProps) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+}
+
+
+
 
 const Courses = ({ courses, handleOpenDialog, selectedYears, handleCheckboxChange, groupedCourses, getCardColor }: { courses: any, handleOpenDialog: any, selectedYears: number[], handleCheckboxChange: (year: number) => void, groupedCourses: { [key: number]: any[] }, getCardColor: (year: number) => string }) => (
   <div>
@@ -110,7 +179,7 @@ export default function Component() {
   const handleOpenDialog = (course: Course) => {
     setSelectedCourse(course);
     setOpenDialog(true);
-  };
+  };  
 
   const handleCloseDialog = () => {
     setOpenDialog(false);
