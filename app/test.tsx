@@ -6,7 +6,6 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { DialogTitle, DialogDescription, DialogHeader, DialogContent, DialogFooter, Dialog } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import { Label } from "@/components/ui/label";
-import '../styles/globals.css';
 import Head from 'next/head';
 
 
